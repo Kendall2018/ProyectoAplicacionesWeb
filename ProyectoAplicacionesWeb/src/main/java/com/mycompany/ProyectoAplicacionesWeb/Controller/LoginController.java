@@ -18,7 +18,7 @@ public class LoginController {
 
     @GetMapping({"/", "/login"})
     public String mostrarLogin() {
-        return "login";
+        return "login/login";
     }
 
     @PostMapping("/login")
@@ -28,7 +28,8 @@ public class LoginController {
             HttpSession session,
             Model model) {
 
-        Usuario usuario = usuarioRepository.findByUsernameAndPasswordAndActivoTrue(username, password);
+        Usuario usuario = usuarioRepository
+                .findByUsernameAndPasswordAndActivoTrue(username, password);
 
         if (usuario != null) {
             session.setAttribute("usuarioLogueado", usuario);
@@ -36,7 +37,33 @@ public class LoginController {
         }
 
         model.addAttribute("error", true);
-        return "login";
+        return "login/login";
+    }
+
+    @GetMapping("/registro")
+    public String mostrarRegistro() {
+        return "login/registro";
+    }
+
+    @PostMapping("/guardarUsuario")
+    public String guardarUsuario(
+            @RequestParam String nombre,
+            @RequestParam String username,
+            @RequestParam String correo,
+            @RequestParam String password) {
+
+        Usuario usuario = new Usuario();
+
+        usuario.setNombre(nombre);
+        usuario.setUsername(username);
+        usuario.setCorreo(correo);
+        usuario.setPassword(password);
+        usuario.setRol("USER");
+        usuario.setActivo(true);
+
+        usuarioRepository.save(usuario);
+
+        return "redirect:/login";
     }
 
     @GetMapping("/inicio")
@@ -49,7 +76,8 @@ public class LoginController {
         }
 
         model.addAttribute("usuario", usuario);
-        return "inicio";
+
+        return "login/inicio";
     }
 
     @GetMapping("/logout")
