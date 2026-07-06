@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - Soporte TECH</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="container-fluid">
+        <span class="navbar-brand">Soporte <strong>TECH</strong></span>
+
+        <div class="user-box">
+            <span th:text="${usuario.nombre}">Usuario</span>
+            <a th:href="@{/logout}" class="btn btn-salir">Cerrar sesión</a>
+        </div>
+    </div>
+</nav>
+
+<div class="main-container">
+
+    <div class="welcome-card">
+        <h1>Bienvenido a Soporte <span>TECH</span></h1>
+        <p>Sistema de gestión de soporte técnico</p>
+
+        <div class="user-info">
+            Usuario: <strong th:text="${usuario.username}"></strong> |
+            Rol: <strong th:text="${usuario.rol}"></strong>
+        </div>
+    </div>
+
+    <div class="menu-grid">
+
+        <a href="#" class="menu-card">
+            <div class="icon">👥</div>
+            <h3>Usuarios</h3>
+            <p>Administrar usuarios del sistema.</p>
+        </a>
+
+        <a href="#" class="menu-card">
+            <div class="icon">🖥️</div>
+            <h3>Componentes</h3>
+            <p>Consultar equipos tecnológicos y sus componentes.</p>
+        </a>
+
+        <a href="#" class="menu-card">
+            <div class="icon">🎫</div>
+            <h3>Tickets</h3>
+            <p>Gestionar solicitudes de soporte técnico.</p>
+        </a>
+
+        <a href="#" class="menu-card">
+            <div class="icon">💾</div>
+            <h3>Productos</h3>
+            <p>Consultar productos o repuestos disponibles.</p>
+        </a>
+
+        <a href="#" class="menu-card">
+            <div class="icon">📊</div>
+            <h3>Reportes</h3>
+            <p>Ver reportes generales del sistema.</p>
+        </a>
+
+        <a th:href="@{/problemas}" class="menu-card">
+            <div class="icon">🛠️</div>
+            <h3>Problemas Comunes</h3>
+            <p>Consulte las fallas más frecuentes de una computadora y sus posibles soluciones.</p>
+        </a>        
+
+    </div>
+
+</div>
+
+<style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #00a6d6, #0077b6, #004e89);
+    }
+
+    .navbar {
+        background: #ffffff;
+        padding: 18px 35px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+    }
+
+    .navbar-brand {
+        font-size: 28px;
+        font-weight: 900;
+        color: #003b73;
+    }
+
+    .navbar-brand strong {
+        color: #00a6d6;
+    }
+
+    .user-box {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-weight: 700;
+        color: #16324f;
+    }
+
+    .btn-salir {
+        background: #dc3545;
+        color: white;
+        border-radius: 12px;
+        font-weight: 700;
+        padding: 8px 18px;
+    }
+
+    .btn-salir:hover {
+        background: #bb2d3b;
+        color: white;
+    }
+
+    .main-container {
+        max-width: 1200px;
+        margin: 45px auto;
+        padding: 0 25px;
+    }
+
+    .welcome-card {
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 35px;
+        text-align: center;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+        margin-bottom: 35px;
+    }
+
+    .welcome-card h1 {
+        font-size: 38px;
+        font-weight: 900;
+        color: #003b73;
+        margin-bottom: 8px;
+    }
+
+    .welcome-card h1 span {
+        color: #00a6d6;
+    }
+
+    .welcome-card p {
+        color: #607d9b;
+        font-size: 17px;
+        margin-bottom: 12px;
+    }
+
+    .user-info {
+        color: #16324f;
+        font-size: 16px;
+    }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .menu-card {
+        background: #ffffff;
+        border-radius: 22px;
+        padding: 30px;
+        text-decoration: none;
+        color: #16324f;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.22);
+        transition: 0.25s;
+        min-height: 210px;
+    }
+
+    .menu-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 55px rgba(0, 0, 0, 0.30);
+        color: #003b73;
+    }
+
+    .icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #0077b6, #00a6d6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 34px;
+        margin-bottom: 18px;
+    }
+
+    .menu-card h3 {
+        font-weight: 900;
+        margin-bottom: 10px;
+    }
+
+    .menu-card p {
+        color: #607d9b;
+        margin: 0;
+    }
+
+    @media (max-width: 900px) {
+        .menu-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .user-box {
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+    }
+</style>
+
+</body>
+</html>
