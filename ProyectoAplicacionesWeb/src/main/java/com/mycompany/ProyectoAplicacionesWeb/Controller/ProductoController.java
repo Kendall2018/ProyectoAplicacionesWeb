@@ -22,7 +22,7 @@ public class ProductoController {
         var productos = productoService.getProductos(Boolean.TRUE);
         model.addAttribute("productos", productos);
         model.addAttribute("totalCategorias", productos.size());
-        return "/producto/listado";
+        return "productos/listado";
     }
     
 }

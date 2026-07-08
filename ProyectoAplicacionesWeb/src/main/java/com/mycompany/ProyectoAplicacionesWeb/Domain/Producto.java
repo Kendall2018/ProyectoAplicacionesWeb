@@ -37,8 +37,8 @@ public class Producto implements Serializable {
     @Column(nullable = false)
     private BigDecimal precio;
 
-    @Column(nullable = false)
-    private Integer stock;
+    @Column(name = "existencias", nullable = false)
+    private Integer existencias;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categoria", nullable = false)
