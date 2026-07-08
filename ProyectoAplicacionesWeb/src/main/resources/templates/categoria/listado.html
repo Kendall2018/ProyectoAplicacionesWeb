@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Categorías - Soporte TECH</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2>Categorías</h2>
+
+            <p class="text-muted">
+
+                Total:
+                <span th:text="${totalCategorias}"></span>
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <a th:href="@{/inicio}"
+               class="btn btn-secondary">
+
+                Volver
+
+            </a>
+
+            <a th:href="@{/categoria/nuevo}"
+               class="btn btn-primary">
+
+                Nueva Categoría
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered table-hover align-middle">
+
+        <thead class="table-primary">
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Nombre</th>
+
+            <th>Descripción</th>
+
+            <th>Activo</th>
+
+            <th>Acciones</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="categoria : ${categorias}">
+
+            <td th:text="${categoria.idCategoria}"></td>
+
+            <td th:text="${categoria.nombre}"></td>
+
+            <td th:text="${categoria.descripcion}"></td>
+
+            <td>
+
+                <span class="badge bg-success"
+                      th:if="${categoria.activo}">
+                    Sí
+                </span>
+
+                <span class="badge bg-danger"
+                      th:unless="${categoria.activo}">
+                    No
+                </span>
+
+            </td>
+
+            <td>
+
+                <a class="btn btn-warning btn-sm"
+                   th:href="@{/categoria/modificar/{id}(id=${categoria.idCategoria})}">
+
+                    Editar
+
+                </a>
+
+                <a class="btn btn-danger btn-sm"
+                   th:href="@{/categoria/eliminar/{id}(id=${categoria.idCategoria})}">
+
+                    Eliminar
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+
+</html>
