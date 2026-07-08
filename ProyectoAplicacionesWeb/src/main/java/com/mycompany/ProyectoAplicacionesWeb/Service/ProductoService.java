@@ -25,5 +25,19 @@ public class ProductoService {
         return productoRepository.findAll();
         
     }
+    public void save(Producto producto){
+        productoRepository.save(producto);
+    }
+    public void delete(Long id){
+        productoRepository.deleteById(id);
+    }
+    
+    public void update(Producto producto){
+        productoRepository.save(producto);
+    }
+    
+    public Producto getProducto(Long id) {
+        return productoRepository.findById(id).orElse(null);
+ }
     
 }

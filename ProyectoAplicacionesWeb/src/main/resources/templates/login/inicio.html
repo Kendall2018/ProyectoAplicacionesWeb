@@ -34,12 +34,21 @@
 
     <div class="menu-grid">
 
-        <a href="#" class="menu-card">
-            <div class="icon">👥</div>
-            <h3>Usuarios</h3>
-            <p>Administrar usuarios del sistema.</p>
+        <a th:href="@{/categoria/listado}" class="menu-card">
+            <div class="icon">📂</div>
+            <h3>Categorías</h3>
+            <p>Administrar las categorías de los productos.</p>
         </a>
 
+        <a th:href="@{/cliente/listado}" class="menu-card">
+
+            <div class="icon">👤</div>
+
+            <h3>Clientes</h3>
+
+            <p>Administrar los clientes registrados.</p>
+
+        </a>
         <a href="#" class="menu-card">
             <div class="icon">🖥️</div>
             <h3>Servicios</h3>

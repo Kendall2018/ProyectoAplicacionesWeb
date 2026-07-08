@@ -27,6 +27,9 @@ public class Producto implements Serializable {
 
     @Column(nullable = false, length = 100)
     private String nombre;
+    
+    @Column(name = "marca", nullable = false, length = 100)
+    private String marca;
 
     @Column(columnDefinition = "TEXT")
     private String descripcion;
