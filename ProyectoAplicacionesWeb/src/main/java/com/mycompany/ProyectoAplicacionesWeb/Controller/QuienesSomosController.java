@@ -4,12 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ProblemaController {
+public class QuienesSomosController {
 
-    @GetMapping("/problemas")
-    public String problemas() {
+    @GetMapping("/quienesSomos")
+    public String quienesSomos() {
 
-        return "SubMenus/problemas";
+        return "SubMenus/quienesSomos";
 
     }
 
