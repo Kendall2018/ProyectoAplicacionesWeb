@@ -23,7 +23,7 @@ public class Producto implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProducto;
+    private Integer idProducto;
 
     @Column(nullable = false, length = 100)
     private String nombre;
