@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    lang="es">
+
+<body>
+
+
+
+<div
+    th:fragment="verCarrito"
+    id="resultBlock">
+
+
+
+
+    <div
+        th:if="${errorMensaje}"
+
+        class="alert alert-danger mb-3"
+
+        role="alert">
+
+        <i
+            class="
+                bi bi-exclamation-triangle-fill
+                me-2
+            ">
+        </i>
+
+        <span
+            th:text="${errorMensaje}">
+
+            Error al agregar el producto.
+
+        </span>
+
+    </div>
+
+
+
+
+    <a
+        th:href="@{/carrito/listado}"
+
+        class="
+            btn btn-primary
+            rounded-pill
+            px-4
+            position-relative
+        ">
+
+
+        <i
+            class="
+                bi bi-cart3
+                me-2
+            ">
+        </i>
+
+
+        Ver carrito
+
+
+        <!-- Total -->
+
+        <span
+            class="ms-2"
+
+            th:text="
+                '₡'
+                +
+                ${#numbers.formatDecimal(
+                    carritoTotal != null
+                    ? carritoTotal
+                    : 0,
+
+                    1,
+                    'COMMA',
+                    2,
+                    'POINT'
+                )}
+            ">
+
+            ₡0.00
+
+        </span>
+
+
+
+
+        <span
+
+            th:if="${listaItems != null}"
+
+            class="
+                position-absolute
+                top-0
+                start-100
+                translate-middle
+                badge
+                rounded-pill
+                bg-danger
+            "
+
+            th:text="
+                ${#lists.size(listaItems)}
+            ">
+
+            0
+
+        </span>
+
+    </a>
+
+</div>
+
+</body>
+
+</html>
