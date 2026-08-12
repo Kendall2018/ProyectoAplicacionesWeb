@@ -9,15 +9,11 @@ import org.springframework.data.repository.query.Param;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Usuario findByUsernameAndPasswordAndActivoTrue(String username, String password);
-<<<<<<< Updated upstream
 
     Optional<Usuario> findByUsernameAndActivoTrue(String username);
-
-=======
     
     Optional<Usuario> findByUsername(String username);
     
     @Query("SELECT u FROM Usuario u WHERE u.username = :username")
     Optional<Usuario> getUsuarioPorUsername(@Param("username") String username);
->>>>>>> Stashed changes
 }
