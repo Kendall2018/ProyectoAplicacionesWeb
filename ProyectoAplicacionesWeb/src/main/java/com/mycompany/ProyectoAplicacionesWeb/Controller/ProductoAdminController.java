@@ -47,7 +47,7 @@ public class ProductoAdminController {
     }
 
     @GetMapping("/producto/editar/{id}")
-    public String editar(@PathVariable Long id, Model model) {
+    public String editar(@PathVariable Integer id, Model model) {
         model.addAttribute("producto", productoService.getProducto(id));
         model.addAttribute("categorias", categoriaService.getCategorias(Boolean.FALSE));
         return "admin/modifica";
@@ -60,7 +60,7 @@ public class ProductoAdminController {
     }
 
     @GetMapping("/producto/eliminar/{id}")
-    public String eliminar(@PathVariable Long id) {
+    public String eliminar(@PathVariable Integer id) {
         productoService.delete(id);
         return "redirect:/admin/listado";
     }

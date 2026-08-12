@@ -28,7 +28,7 @@ public class ProductoService {
     public void save(Producto producto){
         productoRepository.save(producto);
     }
-    public void delete(Long id){
+    public void delete(Integer id){
         productoRepository.deleteById(id);
     }
     
@@ -36,7 +36,7 @@ public class ProductoService {
         productoRepository.save(producto);
     }
     
-    public Producto getProducto(Long id) {
+    public Producto getProducto(Integer id) {
         return productoRepository.findById(id).orElse(null);
  }
     
