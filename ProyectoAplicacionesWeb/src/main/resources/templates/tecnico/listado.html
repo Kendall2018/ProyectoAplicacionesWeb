@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    lang="es">
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+
+    <title>
+        Técnicos - Soporte TECH
+    </title>
+
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+
+</head>
+
+
+<body>
+
+
+<div class="container py-5">
+
+
+    <div class="principal">
+
+
+        <!-- ================================= -->
+        <!-- ENCABEZADO -->
+        <!-- ================================= -->
+
+        <div
+            class="
+                d-flex
+                justify-content-between
+                align-items-center
+                flex-wrap
+                gap-3
+                mb-4
+            ">
+
+
+            <div>
+
+                <h2>
+
+                    <i class="bi bi-headset"></i>
+
+                    Técnicos disponibles
+
+                </h2>
+
+
+                <p class="text-muted mb-1">
+
+                    Selecciona el técnico
+                    que deseas contactar.
+
+                </p>
+
+
+                <small class="text-muted">
+
+                    Técnicos disponibles:
+
+                    <strong
+                        th:text="${totalTecnicos}">
+
+                        0
+
+                    </strong>
+
+                </small>
+
+            </div>
+
+
+            <div class="d-flex gap-2">
+
+
+                <a
+                    th:href="@{/inicio}"
+
+                    class="
+                        btn
+                        btn-outline-secondary
+                        rounded-pill
+                    ">
+
+                    <i
+                        class="
+                            bi
+                            bi-arrow-left
+                        ">
+                    </i>
+
+                    Volver
+
+                </a>
+
+
+                <!-- SOLO ADMIN -->
+
+                <a
+                    sec:authorize="hasRole('ADMIN')"
+
+                    th:href="@{/tecnico/nuevo}"
+
+                    class="
+                        btn
+                        btn-primary
+                        rounded-pill
+                    ">
+
+                    <i
+                        class="
+                            bi
+                            bi-person-plus-fill
+                        ">
+                    </i>
+
+                    Nuevo técnico
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================================= -->
+        <!-- TECNICOS -->
+        <!-- ================================= -->
+
+        <div
+            class="row g-4"
+
+            th:if="${!#lists.isEmpty(tecnicos)}">
+
+
+            <div
+                class="
+                    col-md-6
+                    col-lg-4
+                "
+
+                th:each="
+                    tecnico : ${tecnicos}
+                ">
+
+
+                <div
+                    class="
+                        tecnico-card
+                        h-100
+                    ">
+
+
+                    <div class="icono">
+
+                        <i
+                            class="
+                                bi
+                                bi-person-gear
+                            ">
+                        </i>
+
+                    </div>
+
+
+                    <h4
+                        th:text="
+                        ${tecnico.nombre
+                        + ' '
+                        + tecnico.apellidos}">
+
+                        Técnico
+
+                    </h4>
+
+
+                    <div
+                        class="especialidad"
+
+                        th:text="
+                        ${tecnico.especialidad}">
+
+                        Especialidad
+
+                    </div>
+
+
+                    <p
+                        class="
+                            text-muted
+                            descripcion
+                        "
+
+                        th:text="
+                        ${tecnico.descripcion != null
+                        ?
+                        tecnico.descripcion
+                        :
+                        'Técnico disponible para soporte.'}">
+
+                        Descripción
+
+                    </p>
+
+
+                    <div class="dato">
+
+                        <i class="bi bi-envelope-fill"></i>
+
+                        <span
+                            th:text="
+                            ${tecnico.correo}">
+
+                            correo@gmail.com
+
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="dato mb-4"
+
+                        th:if="
+                        ${tecnico.telefono != null}">
+
+
+                        <i
+                            class="
+                                bi
+                                bi-telephone-fill
+                            ">
+                        </i>
+
+
+                        <span
+                            th:text="
+                            ${tecnico.telefono}">
+
+                            88888888
+
+                        </span>
+
+
+                    </div>
+
+
+                    <!-- ================================= -->
+                    <!-- CONTACTAR -->
+                    <!-- ================================= -->
+
+                    <a
+
+                        th:href="
+                        @{/tecnico/contactar/{id}
+                        (id=${tecnico.idTecnico})}"
+
+                        class="
+                            btn
+                            btn-contactar
+                            rounded-pill
+                            w-100
+                        ">
+
+
+                        <i
+                            class="
+                                bi
+                                bi-envelope-paper-fill
+                            ">
+                        </i>
+
+
+                        Contactar técnico
+
+
+                    </a>
+
+
+                    <!-- ================================= -->
+                    <!-- ADMIN -->
+                    <!-- ================================= -->
+
+                    <div
+
+                        sec:authorize="
+                        hasRole('ADMIN')"
+
+                        class="
+                            d-flex
+                            gap-2
+                            mt-3
+                        ">
+
+
+                        <a
+
+                            th:href="
+                            @{/tecnico/modificar/{id}
+                            (id=${tecnico.idTecnico})}"
+
+                            class="
+                                btn
+                                btn-warning
+                                btn-sm
+                                rounded-pill
+                                flex-fill
+                            ">
+
+
+                            <i
+                                class="
+                                    bi
+                                    bi-pencil-square
+                                ">
+                            </i>
+
+                            Editar
+
+                        </a>
+
+
+                        <a
+
+                            th:href="
+                            @{/tecnico/eliminar/{id}
+                            (id=${tecnico.idTecnico})}"
+
+                            class="
+                                btn
+                                btn-danger
+                                btn-sm
+                                rounded-pill
+                                flex-fill
+                            "
+
+                            onclick="
+                            return confirm(
+                            '¿Desea desactivar este técnico?'
+                            );
+                            ">
+
+
+                            <i
+                                class="
+                                    bi
+                                    bi-person-x-fill
+                                ">
+                            </i>
+
+                            Desactivar
+
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- SIN TECNICOS -->
+
+        <div
+
+            th:if="
+            ${#lists.isEmpty(tecnicos)}"
+
+            class="
+                text-center
+                py-5
+            ">
+
+
+            <i
+                class="
+                    bi
+                    bi-person-x
+                    display-1
+                ">
+            </i>
+
+
+            <h4 class="mt-3">
+
+                No hay técnicos disponibles
+
+            </h4>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<style>
+
+
+    body {
+
+        min-height: 100vh;
+
+        background:
+            linear-gradient(
+                135deg,
+                #00a6d6,
+                #0077b6,
+                #004e89
+            );
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+    }
+
+
+    .principal {
+
+        background: white;
+
+        padding: 35px;
+
+        border-radius: 25px;
+
+        box-shadow:
+            0 18px 45px
+            rgba(0,0,0,.25);
+
+    }
+
+
+    h2 {
+
+        color: #003b73;
+
+        font-weight: 900;
+
+    }
+
+
+    .tecnico-card {
+
+        background: white;
+
+        border-radius: 22px;
+
+        padding: 28px;
+
+        box-shadow:
+            0 10px 30px
+            rgba(0,0,0,.12);
+
+        transition: .25s;
+
+        display: flex;
+
+        flex-direction: column;
+
+    }
+
+
+    .tecnico-card:hover {
+
+        transform:
+            translateY(-6px);
+
+        box-shadow:
+            0 18px 40px
+            rgba(0,0,0,.18);
+
+    }
+
+
+    .icono {
+
+        width: 70px;
+
+        height: 70px;
+
+        border-radius: 20px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #0077b6,
+                #00a6d6
+            );
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        color: white;
+
+        font-size: 34px;
+
+        margin-bottom: 18px;
+
+    }
+
+
+    .tecnico-card h4 {
+
+        color: #003b73;
+
+        font-weight: 900;
+
+        margin-bottom: 4px;
+
+    }
+
+
+    .especialidad {
+
+        color: #0077b6;
+
+        font-weight: 800;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .descripcion {
+
+        flex-grow: 1;
+
+    }
+
+
+    .dato {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        color: #607d9b;
+
+        margin-bottom: 8px;
+
+        word-break: break-word;
+
+    }
+
+
+    .dato i {
+
+        color: #0077b6;
+
+    }
+
+
+    .btn-contactar {
+
+        background: #0077b6;
+
+        color: white;
+
+        font-weight: 800;
+
+    }
+
+
+    .btn-contactar:hover {
+
+        background: #005f91;
+
+        color: white;
+
+    }
+
+
+</style>
+
+
+</body>
+
+</html>

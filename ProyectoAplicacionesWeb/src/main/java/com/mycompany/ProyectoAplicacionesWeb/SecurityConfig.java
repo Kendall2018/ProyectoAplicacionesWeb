@@ -25,7 +25,10 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth -> auth
 
-                
+                // ==========================================
+                // RUTAS PÚBLICAS
+                // ==========================================
+
                 .requestMatchers(
                         "/",
                         "/login",
@@ -41,42 +44,84 @@ public class SecurityConfig {
                 .permitAll()
 
 
+                // ==========================================
+                // SOLO ADMINISTRADOR
+                // ==========================================
+
                 .requestMatchers(
                         "/categoria/**",
-                        "/cliente/**"
+                        "/cliente/**",
+                        "/admin/**",
+
+                        // Administración de técnicos
+
+                        "/tecnico/nuevo",
+                        "/tecnico/guardar",
+                        "/tecnico/modificar/**",
+                        "/tecnico/eliminar/**"
                 )
                 .hasRole("ADMIN")
 
 
+                // ==========================================
+                // ADMINISTRADOR Y USUARIO
+                // ==========================================
+
                 .requestMatchers(
                         "/inicio",
+
                         "/producto/**",
 
                         // Carrito
+
                         "/carrito/**",
 
-                        // Facturación del carrito
+                        // Facturación
+
                         "/facturar/**",
 
                         "/problemas",
-                        "/quienesSomos"
+
+                        "/quienesSomos",
+
+                        // ==================================
+                        // TÉCNICOS
+                        // ==================================
+
+                        "/tecnico/listado",
+
+                        "/tecnico/contactar/**",
+
+                        "/tecnico/enviarCorreo"
                 )
                 .hasAnyRole(
                         "ADMIN",
                         "USER"
                 )
 
-                
+
+                // ==========================================
+                // CUALQUIER OTRA RUTA
+                // ==========================================
+
                 .anyRequest()
                 .authenticated()
         )
 
 
+        // ==========================================
+        // LOGIN
+        // ==========================================
+
         .formLogin(form -> form
 
-                .loginPage("/login")
+                .loginPage(
+                        "/login"
+                )
 
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl(
+                        "/login"
+                )
 
                 .defaultSuccessUrl(
                         "/inicio",
@@ -91,29 +136,55 @@ public class SecurityConfig {
         )
 
 
+        // ==========================================
+        // LOGOUT
+        // ==========================================
+
         .logout(logout -> logout
 
-                .logoutUrl("/logout")
+                .logoutUrl(
+                        "/logout"
+                )
 
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl(
+                        "/login"
+                )
 
-                .invalidateHttpSession(true)
+                .invalidateHttpSession(
+                        true
+                )
 
-                .clearAuthentication(true)
+                .clearAuthentication(
+                        true
+                )
 
-                .deleteCookies("JSESSIONID")
+                .deleteCookies(
+                        "JSESSIONID"
+                )
 
                 .permitAll()
         )
 
+
+        // ==========================================
+        // ACCESO DENEGADO
+        // ==========================================
+
         .exceptionHandling(exception -> exception
+
                 .accessDeniedPage(
                         "/accesoDenegado"
                 )
+
         );
 
         return http.build();
     }
+
+
+    // ==========================================
+    // PASSWORD ENCODER
+    // ==========================================
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -121,8 +192,14 @@ public class SecurityConfig {
         return NoOpPasswordEncoder.getInstance();
     }
 
+
+    // ==========================================
+    // CONFIGURACIÓN DE AUTENTICACIÓN
+    // ==========================================
+
     @Autowired
     public void configurarGlobal(
+
             AuthenticationManagerBuilder auth,
 
             @Lazy
@@ -133,7 +210,13 @@ public class SecurityConfig {
 
             throws Exception {
 
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder);
+        auth
+                .userDetailsService(
+                        userDetailsService
+                )
+                .passwordEncoder(
+                        passwordEncoder
+                );
     }
+
 }

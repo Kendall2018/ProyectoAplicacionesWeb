@@ -2,6 +2,7 @@
 
 <html
     xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     lang="es">
 
 <head>
@@ -81,9 +82,12 @@
                 "~{carrito/fragmentos :: verCarrito}">
             </div>
 
-            <!-- Panel administrativo -->
+            <!-- ======================================= -->
+            <!-- PANEL ADMIN - SOLO LO VE EL ADMIN -->
+            <!-- ======================================= -->
 
             <a
+                sec:authorize="hasRole('ADMIN')"
                 th:href="@{/admin/listado}"
                 class="btn btn-outline-primary
                        rounded-pill">
@@ -356,7 +360,6 @@
     </div>
 
 </div>
-
 
 
 <script

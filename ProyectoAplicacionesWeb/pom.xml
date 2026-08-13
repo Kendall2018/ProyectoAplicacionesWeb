@@ -24,43 +24,15 @@
 
     <groupId>com.mycompany</groupId>
 
-    <artifactId>
-        ProyectoAplicacionesWeb
-    </artifactId>
+    <artifactId>ProyectoAplicacionesWeb</artifactId>
 
-    <version>
-        0.0.1-SNAPSHOT
-    </version>
+    <version>0.0.1-SNAPSHOT</version>
 
-    <name>
-        ProyectoAplicacionesWeb
-    </name>
+    <name>ProyectoAplicacionesWeb</name>
 
     <description>
         Proyecto aplicaciones web
     </description>
-
-    <url/>
-
-
-    <!-- ===================================================== -->
-    <!-- INFORMACIÓN ADICIONAL -->
-    <!-- ===================================================== -->
-
-    <licenses>
-        <license/>
-    </licenses>
-
-    <developers>
-        <developer/>
-    </developers>
-
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
 
 
     <!-- ===================================================== -->
@@ -69,19 +41,7 @@
 
     <properties>
 
-        <!-- Versión de Java utilizada por el proyecto -->
-
-        <java.version>
-            21
-        </java.version>
-
-
-        <!--
-            Clase principal.
-
-            NetBeans utiliza la propiedad ${start-class}
-            cuando ejecuta el proyecto mediante Maven.
-        -->
+        <java.version>21</java.version>
 
         <start-class>
             com.mycompany.ProyectoAplicacionesWeb.ProyectoAplicacionesWebApplication
@@ -97,102 +57,68 @@
     <dependencies>
 
 
-        <!-- =============================== -->
+        <!-- ================================================= -->
         <!-- SPRING SECURITY -->
-        <!-- =============================== -->
+        <!-- ================================================= -->
 
         <dependency>
-
-            <groupId>
-                org.springframework.boot
-            </groupId>
-
-            <artifactId>
-                spring-boot-starter-security
-            </artifactId>
-
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
 
-        <!-- =============================== -->
+        <!-- ================================================= -->
         <!-- THYMELEAF -->
-        <!-- =============================== -->
+        <!-- ================================================= -->
 
         <dependency>
-
-            <groupId>
-                org.springframework.boot
-            </groupId>
-
-            <artifactId>
-                spring-boot-starter-thymeleaf
-            </artifactId>
-
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
 
-        <!-- =============================== -->
+        <!-- ================================================= -->
         <!-- SPRING MVC -->
-        <!-- =============================== -->
+        <!-- ================================================= -->
 
         <dependency>
-
-            <groupId>
-                org.springframework.boot
-            </groupId>
-
-            <artifactId>
-                spring-boot-starter-webmvc
-            </artifactId>
-
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
 
 
-        <!-- =============================== -->
-        <!-- THYMELEAF + SECURITY -->
-        <!-- =============================== -->
+        <!-- ================================================= -->
+        <!-- THYMELEAF + SPRING SECURITY -->
+        <!-- ================================================= -->
 
         <dependency>
-
-            <groupId>
-                org.thymeleaf.extras
-            </groupId>
-
-            <artifactId>
-                thymeleaf-extras-springsecurity6
-            </artifactId>
-
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
         </dependency>
 
 
-        <!-- =============================== -->
+        <!-- ================================================= -->
         <!-- DEVTOOLS -->
-        <!-- =============================== -->
+        <!-- ================================================= -->
 
         <dependency>
 
-            <groupId>
-                org.springframework.boot
-            </groupId>
+            <groupId>org.springframework.boot</groupId>
 
             <artifactId>
                 spring-boot-devtools
             </artifactId>
 
-            <scope>
-                runtime
-            </scope>
+            <scope>runtime</scope>
 
-            <optional>
-                true
-            </optional>
+            <optional>true</optional>
 
         </dependency>
 
 
-        <!-- =============================== -->
+        <!-- ================================================= -->
         <!-- LOMBOK -->
-        <!-- =============================== -->
+        <!-- ================================================= -->
 
         <dependency>
 
@@ -204,15 +130,32 @@
                 lombok
             </artifactId>
 
-            <optional>
-                true
-            </optional>
+            <scope>
+                provided
+            </scope>
 
         </dependency>
 
 
         <!-- ================================================= -->
-        <!-- DEPENDENCIAS PARA PRUEBAS -->
+        <!-- ENVÍO DE CORREOS -->
+        <!-- ================================================= -->
+
+        <dependency>
+
+            <groupId>
+                org.springframework.boot
+            </groupId>
+
+            <artifactId>
+                spring-boot-starter-mail
+            </artifactId>
+
+        </dependency>
+
+
+        <!-- ================================================= -->
+        <!-- PRUEBAS -->
         <!-- ================================================= -->
 
         <dependency>
@@ -270,9 +213,6 @@
         <!-- WEBJARS -->
         <!-- ================================================= -->
 
-
-        <!-- Bootstrap -->
-
         <dependency>
 
             <groupId>
@@ -289,8 +229,6 @@
 
         </dependency>
 
-
-        <!-- Font Awesome -->
 
         <dependency>
 
@@ -309,8 +247,6 @@
         </dependency>
 
 
-        <!-- jQuery -->
-
         <dependency>
 
             <groupId>
@@ -328,8 +264,6 @@
         </dependency>
 
 
-        <!-- Popper -->
-
         <dependency>
 
             <groupId>
@@ -346,8 +280,6 @@
 
         </dependency>
 
-
-        <!-- WebJars Locator -->
 
         <dependency>
 
@@ -471,6 +403,7 @@
 
         </dependency>
 
+
     </dependencies>
 
 
@@ -501,19 +434,12 @@
                 <configuration>
 
 
-                    <!--
-                        Clase principal de la aplicación.
-                    -->
-
                     <mainClass>
                         com.mycompany.ProyectoAplicacionesWeb.ProyectoAplicacionesWebApplication
                     </mainClass>
 
 
-                    <!--
-                        Lombok no debe incluirse
-                        dentro del JAR final.
-                    -->
+                    <!-- Lombok no se incluye en el JAR final -->
 
                     <excludes>
 
@@ -531,13 +457,14 @@
 
                     </excludes>
 
+
                 </configuration>
 
             </plugin>
 
 
             <!-- ================================================= -->
-            <!-- MAVEN COMPILER -->
+            <!-- MAVEN COMPILER + LOMBOK -->
             <!-- ================================================= -->
 
             <plugin>
@@ -551,104 +478,58 @@
                 </artifactId>
 
 
-                <executions>
+                <configuration>
+
+                    <!-- Compilar utilizando Java 21 -->
+
+                    <release>
+                        21
+                    </release>
 
 
-                    <!-- ============================== -->
-                    <!-- COMPILACIÓN PRINCIPAL -->
-                    <!-- ============================== -->
+                    <!--
+                        IMPORTANTE:
+                        Ejecuta los procesadores de anotaciones.
+                        Aquí es donde Lombok genera automáticamente:
+                        getCorreo()
+                        getIdVenta()
+                        getProducto()
+                        getCantidad()
+                        etc.
+                    -->
 
-                    <execution>
-
-                        <id>
-                            default-compile
-                        </id>
-
-                        <phase>
-                            compile
-                        </phase>
-
-                        <goals>
-
-                            <goal>
-                                compile
-                            </goal>
-
-                        </goals>
-
-                        <configuration>
-
-                            <annotationProcessorPaths>
-
-                                <path>
-
-                                    <groupId>
-                                        org.projectlombok
-                                    </groupId>
-
-                                    <artifactId>
-                                        lombok
-                                    </artifactId>
-
-                                </path>
-
-                            </annotationProcessorPaths>
-
-                        </configuration>
-
-                    </execution>
+                    <proc>
+                        full
+                    </proc>
 
 
-                    <!-- ============================== -->
-                    <!-- COMPILACIÓN DE PRUEBAS -->
-                    <!-- ============================== -->
+                    <!-- Procesador de anotaciones Lombok -->
 
-                    <execution>
+                    <annotationProcessorPaths>
 
-                        <id>
-                            default-testCompile
-                        </id>
+                        <path>
 
-                        <phase>
-                            test-compile
-                        </phase>
+                            <groupId>
+                                org.projectlombok
+                            </groupId>
 
-                        <goals>
+                            <artifactId>
+                                lombok
+                            </artifactId>
 
-                            <goal>
-                                testCompile
-                            </goal>
+                        </path>
 
-                        </goals>
+                    </annotationProcessorPaths>
 
-                        <configuration>
+                </configuration>
 
-                            <annotationProcessorPaths>
-
-                                <path>
-
-                                    <groupId>
-                                        org.projectlombok
-                                    </groupId>
-
-                                    <artifactId>
-                                        lombok
-                                    </artifactId>
-
-                                </path>
-
-                            </annotationProcessorPaths>
-
-                        </configuration>
-
-                    </execution>
-
-                </executions>
 
             </plugin>
+
 
         </plugins>
 
     </build>
+
 
 </project>
