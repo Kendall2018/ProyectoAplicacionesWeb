@@ -15,187 +15,270 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
 
+
 @Configuration
 public class SecurityConfig {
+
+
+    // =========================================================
+    // CONFIGURACIÓN DE SEGURIDAD Y RUTAS
+    // =========================================================
 
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http)
             throws Exception {
 
-        http.authorizeHttpRequests(auth -> auth
 
-                // ==========================================
-                // RUTAS PÚBLICAS
-                // ==========================================
+        http.authorizeHttpRequests(
 
-                .requestMatchers(
-                        "/",
-                        "/login",
-                        "/registro",
-                        "/guardarUsuario",
-
-                        "/css/**",
-                        "/js/**",
-                        "/img/**",
-                        "/images/**",
-                        "/webjars/**"
-                )
-                .permitAll()
+                auth -> auth
 
 
-                // ==========================================
-                // SOLO ADMINISTRADOR
-                // ==========================================
+                        // =================================================
+                        // RUTAS PÚBLICAS
+                        // =================================================
 
-                .requestMatchers(
-                        "/categoria/**",
-                        "/cliente/**",
-                        "/admin/**",
+                        .requestMatchers(
 
-                        // Administración de técnicos
+                                "/",
 
-                        "/tecnico/nuevo",
-                        "/tecnico/guardar",
-                        "/tecnico/modificar/**",
-                        "/tecnico/eliminar/**"
-                )
-                .hasRole("ADMIN")
+                                "/login",
 
+                                "/registro",
 
-                // ==========================================
-                // ADMINISTRADOR Y USUARIO
-                // ==========================================
+                                "/guardarUsuario",
 
-                .requestMatchers(
-                        "/inicio",
+                                "/css/**",
 
-                        "/producto/**",
+                                "/js/**",
 
-                        // Carrito
+                                "/img/**",
 
-                        "/carrito/**",
+                                "/images/**",
 
-                        // Facturación
+                                "/webjars/**"
 
-                        "/facturar/**",
+                        )
 
-                        "/problemas",
-
-                        "/quienesSomos",
-
-                        // ==================================
-                        // TÉCNICOS
-                        // ==================================
-
-                        "/tecnico/listado",
-
-                        "/tecnico/contactar/**",
-
-                        "/tecnico/enviarCorreo"
-                )
-                .hasAnyRole(
-                        "ADMIN",
-                        "USER"
-                )
+                        .permitAll()
 
 
-                // ==========================================
-                // CUALQUIER OTRA RUTA
-                // ==========================================
+                        // =================================================
+                        // RUTAS EXCLUSIVAS DEL ADMINISTRADOR
+                        // =================================================
 
-                .anyRequest()
-                .authenticated()
-        )
+                        .requestMatchers(
 
+                                // CATEGORÍAS
 
-        // ==========================================
-        // LOGIN
-        // ==========================================
+                                "/categoria/**",
 
-        .formLogin(form -> form
+                                // CLIENTES
 
-                .loginPage(
-                        "/login"
-                )
+                                "/cliente/**",
 
-                .loginProcessingUrl(
-                        "/login"
-                )
+                                // ADMINISTRACIÓN DE PRODUCTOS
 
-                .defaultSuccessUrl(
-                        "/inicio",
-                        true
-                )
+                                "/admin/**",
 
-                .failureUrl(
-                        "/login?error=true"
-                )
+                                // SOLICITUDES DE SOPORTE
 
-                .permitAll()
-        )
+                                "/solicitud/**",
 
+                                // ADMINISTRACIÓN DE TÉCNICOS
 
-        // ==========================================
-        // LOGOUT
-        // ==========================================
+                                "/tecnico/nuevo",
 
-        .logout(logout -> logout
+                                "/tecnico/guardar",
 
-                .logoutUrl(
-                        "/logout"
-                )
+                                "/tecnico/modificar/**",
 
-                .logoutSuccessUrl(
-                        "/login"
-                )
+                                "/tecnico/eliminar/**"
 
-                .invalidateHttpSession(
-                        true
-                )
+                        )
 
-                .clearAuthentication(
-                        true
-                )
-
-                .deleteCookies(
-                        "JSESSIONID"
-                )
-
-                .permitAll()
-        )
+                        .hasRole(
+                                "ADMIN"
+                        )
 
 
-        // ==========================================
-        // ACCESO DENEGADO
-        // ==========================================
+                        // =================================================
+                        // RUTAS PARA ADMIN Y USER
+                        // =================================================
 
-        .exceptionHandling(exception -> exception
+                        .requestMatchers(
 
-                .accessDeniedPage(
-                        "/accesoDenegado"
-                )
+                                // INICIO
+
+                                "/inicio",
+
+                                // PRODUCTOS
+
+                                "/producto/**",
+
+                                // CARRITO
+
+                                "/carrito/**",
+
+                                // FACTURACIÓN
+
+                                "/facturar/**",
+
+                                // PROBLEMAS COMUNES
+
+                                "/problemas",
+
+                                // QUIÉNES SOMOS
+
+                                "/quienesSomos",
+
+                                // TÉCNICOS
+
+                                "/tecnico/listado",
+
+                                "/tecnico/contactar/**",
+
+                                "/tecnico/enviarCorreo"
+
+                        )
+
+                        .hasAnyRole(
+
+                                "ADMIN",
+
+                                "USER"
+
+                        )
+
+
+                        // =================================================
+                        // CUALQUIER OTRA RUTA REQUIERE AUTENTICACIÓN
+                        // =================================================
+
+                        .anyRequest()
+
+                        .authenticated()
 
         );
 
+
+        // =========================================================
+        // CONFIGURACIÓN DEL LOGIN
+        // =========================================================
+
+        http.formLogin(
+
+                form -> form
+
+
+                        .loginPage(
+                                "/login"
+                        )
+
+
+                        .loginProcessingUrl(
+                                "/login"
+                        )
+
+
+                        .defaultSuccessUrl(
+                                "/inicio",
+                                true
+                        )
+
+
+                        .failureUrl(
+                                "/login?error=true"
+                        )
+
+
+                        .permitAll()
+
+        );
+
+
+        // =========================================================
+        // CONFIGURACIÓN DEL LOGOUT
+        // =========================================================
+
+        http.logout(
+
+                logout -> logout
+
+
+                        .logoutUrl(
+                                "/logout"
+                        )
+
+
+                        .logoutSuccessUrl(
+                                "/login"
+                        )
+
+
+                        .invalidateHttpSession(
+                                true
+                        )
+
+
+                        .clearAuthentication(
+                                true
+                        )
+
+
+                        .deleteCookies(
+                                "JSESSIONID"
+                        )
+
+
+                        .permitAll()
+
+        );
+
+
+        // =========================================================
+        // ACCESO DENEGADO
+        // =========================================================
+
+        http.exceptionHandling(
+
+                exception -> exception
+
+                        .accessDeniedPage(
+                                "/accesoDenegado"
+                        )
+
+        );
+
+
         return http.build();
+
     }
 
 
-    // ==========================================
+    // =========================================================
     // PASSWORD ENCODER
-    // ==========================================
+    // =========================================================
+    //
+    // Se mantiene NoOpPasswordEncoder por ahora porque
+    // los usuarios actuales tienen las contraseñas
+    // almacenadas en texto plano.
+    //
+    // =========================================================
 
     @Bean
     public PasswordEncoder passwordEncoder() {
 
-        return NoOpPasswordEncoder.getInstance();
+        return NoOpPasswordEncoder
+                .getInstance();
+
     }
 
 
-    // ==========================================
-    // CONFIGURACIÓN DE AUTENTICACIÓN
-    // ==========================================
+    // =========================================================
+    // CONFIGURACIÓN GLOBAL DE AUTENTICACIÓN
+    // =========================================================
 
     @Autowired
     public void configurarGlobal(
@@ -210,13 +293,17 @@ public class SecurityConfig {
 
             throws Exception {
 
+
         auth
+
                 .userDetailsService(
                         userDetailsService
                 )
+
                 .passwordEncoder(
                         passwordEncoder
                 );
+
     }
 
 }

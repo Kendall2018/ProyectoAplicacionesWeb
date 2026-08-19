@@ -1,6 +1,5 @@
 package com.mycompany.ProyectoAplicacionesWeb.Controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -8,12 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class QuienesSomosController {
 
     @GetMapping("/quienesSomos")
-    public String quienesSomos(HttpSession session) {
-
-        if (session.getAttribute("usuarioLogueado") == null) {
-            return "redirect:/login";
-        }
-
-        return "SubMenus/quienesSomos";
+    public String quienesSomos() {
+        return "SubMenus/QuienesSomos";
     }
 }

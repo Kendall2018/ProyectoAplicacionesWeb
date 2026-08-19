@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>
+        Solicitudes - Soporte TECH
+    </title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="container-fluid px-4">
+
+        <span class="navbar-brand">
+
+            Soporte <strong>TECH</strong>
+
+        </span>
+
+
+        <div class="d-flex gap-2">
+
+            <a
+                th:href="@{/inicio}"
+                class="btn btn-outline-primary">
+
+                Inicio
+
+            </a>
+
+
+            <a
+                th:href="@{/solicitud/nuevo}"
+                class="btn btn-primary">
+
+                Nueva solicitud
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<div class="container main-container">
+
+
+    <div class="titulo">
+
+        <h1>
+            Solicitudes de soporte
+        </h1>
+
+        <p>
+
+            Consulte las solicitudes registradas
+            en Soporte TECH.
+
+        </p>
+
+    </div>
+
+
+    <div class="card tabla-card">
+
+
+        <div class="card-body">
+
+
+            <div
+                th:if="${#lists.isEmpty(solicitudes)}"
+                class="alert alert-info">
+
+                No existen solicitudes registradas.
+
+            </div>
+
+
+            <div
+                th:if="${!#lists.isEmpty(solicitudes)}"
+                class="table-responsive">
+
+
+                <table class="table align-middle">
+
+
+                    <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Usuario
+                        </th>
+
+                        <th>
+                            Asunto
+                        </th>
+
+                        <th>
+                            Prioridad
+                        </th>
+
+                        <th>
+                            Estado
+                        </th>
+
+                        <th>
+                            Técnico
+                        </th>
+
+                        <th>
+                            Fecha
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    <tr
+                        th:each="solicitud : ${solicitudes}">
+
+
+                        <td
+                            th:text="${solicitud.idSolicitud}">
+
+                        </td>
+
+
+                        <td
+                            th:text="${solicitud.usuario.nombre}">
+
+                        </td>
+
+
+                        <td>
+
+                            <strong
+                                th:text="${solicitud.asunto}">
+                            </strong>
+
+                            <br>
+
+                            <small
+                                class="text-muted"
+                                th:text="${solicitud.descripcion}">
+                            </small>
+
+                        </td>
+
+
+                        <td>
+
+
+                            <span
+                                class="badge prioridad"
+                                th:text="${solicitud.prioridad}">
+
+                            </span>
+
+
+                        </td>
+
+
+                        <td>
+
+
+                            <span
+                                class="badge estado"
+                                th:text="${solicitud.estado}">
+
+                            </span>
+
+
+                        </td>
+
+
+                        <td>
+
+
+                            <span
+                                th:if="${solicitud.tecnico != null}"
+                                th:text="${solicitud.tecnico.nombre
+                                    + ' '
+                                    + solicitud.tecnico.apellidos}">
+
+                            </span>
+
+
+                            <span
+                                th:if="${solicitud.tecnico == null}"
+                                class="text-muted">
+
+                                Sin asignar
+
+                            </span>
+
+
+                        </td>
+
+
+                        <td
+                            th:text="${#temporals.format(
+                                solicitud.fechaCreacion,
+                                'dd/MM/yyyy HH:mm'
+                            )}">
+
+                        </td>
+
+
+                    </tr>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<style>
+
+    body {
+
+        margin: 0;
+
+        min-height: 100vh;
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        background: #f4f7fb;
+
+    }
+
+
+    .navbar {
+
+        background: white;
+
+        padding: 18px;
+
+        box-shadow:
+            0 5px 20px
+            rgba(0,0,0,.10);
+
+    }
+
+
+    .navbar-brand {
+
+        font-size: 27px;
+
+        color: #003b73;
+
+        font-weight: 900;
+
+    }
+
+
+    .navbar-brand strong {
+
+        color: #00a6d6;
+
+    }
+
+
+    .main-container {
+
+        padding-top: 45px;
+
+        padding-bottom: 45px;
+
+    }
+
+
+    .titulo {
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .titulo h1 {
+
+        color: #003b73;
+
+        font-weight: 900;
+
+    }
+
+
+    .titulo p {
+
+        color: #607d9b;
+
+    }
+
+
+    .tabla-card {
+
+        border: none;
+
+        border-radius: 20px;
+
+        box-shadow:
+            0 12px 35px
+            rgba(0,0,0,.10);
+
+    }
+
+
+    .card-body {
+
+        padding: 25px;
+
+    }
+
+
+    thead {
+
+        background: #003b73;
+
+        color: white;
+
+    }
+
+
+    th {
+
+        padding: 15px !important;
+
+    }
+
+
+    td {
+
+        padding: 15px !important;
+
+    }
+
+
+    .prioridad {
+
+        background: #f59e0b;
+
+    }
+
+
+    .estado {
+
+        background: #0077b6;
+
+    }
+
+</style>
+
+
+</body>
+
+</html>
